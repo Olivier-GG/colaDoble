@@ -1,20 +1,10 @@
 package org.mps.deque;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.condition.JRE.JAVA_21;
-import static org.junit.jupiter.api.condition.JRE.JAVA_8;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperties;
-import org.junit.jupiter.api.condition.EnabledForJreRange;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Tests for class{@link DequeNode}
@@ -26,13 +16,13 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class DequeNodeTest {
 
-    DequeNode node1,node2,node3;
+    DequeNode<Integer> node1,node2,node3;
 
     @BeforeEach
     void setup () {
-        node1 = new DequeNode(5,null,null);
-        node2 = new DequeNode(7,null,null);
-        node3 = new DequeNode(1,null,null);
+        node1 = new DequeNode<>(5,null,null);
+        node2 = new DequeNode<>(7,null,null);
+        node3 = new DequeNode<>(1,null,null);
         //node1.setNext(node2);
         node1.next = node2;
         //node2.setPrevious(node1); node2.setNext(node3);
@@ -64,7 +54,7 @@ public class DequeNodeTest {
         @ParameterizedTest(name = "Testing value {0}")
         @DisplayName("setItem method test")
         @CsvSource({"-1","0","1","2","3","32000"})
-        public void testSetItem (int value) {
+        public void testSetItem (Integer value) {
 
             node1.setItem(value);
 
@@ -87,26 +77,26 @@ public class DequeNodeTest {
             @DisplayName("getPrevious method tests")
             void testGetPrevious () {
 
-                DequeNode prueba1 = node1.getPrevious();
-                DequeNode prueba2 = node2.getPrevious();
-                DequeNode prueba3 = node3.getPrevious();
+                DequeNode<Integer> obtainedValue1 = node1.getPrevious();
+                DequeNode<Integer> obtainedValue2 = node2.getPrevious();
+                DequeNode<Integer> obtainedValue3 = node3.getPrevious();
 
-                assertEquals(prueba1,null);
-                assertEquals(prueba2,node1);
-                assertEquals(prueba3,node2);
+                DequeNode<Integer> expectedValue1 = node1;
+                DequeNode<Integer> expectedValue2 = node2;
+
+                assertNull(obtainedValue1);
+                assertEquals(expectedValue1,obtainedValue2);
+                assertEquals(expectedValue2,obtainedValue3);
 
             }
 
             @Test
             @DisplayName("setPrevious method test")
             void testSetPrevious () {
-
                 node1.setPrevious(node3);
-
-                assertEquals(node1.getPrevious(),node3);
-
+                DequeNode<Integer> expectedValue = node3,obtainedValue = node1.getPrevious();
+                assertEquals(expectedValue,obtainedValue);
             }
-
 
         }
 
@@ -114,22 +104,29 @@ public class DequeNodeTest {
         @Nested
         @DisplayName("Testing methods related to next node")
         class Next {
-            @DisplayName("")
+            @DisplayName("getNext method test")
             @Test
             void testGetNext () {
+                DequeNode<Integer> obtainedValue1 = node1.getNext();
+                DequeNode<Integer> obtainedValue2 = node2.getNext();
+                DequeNode<Integer> obtainedValue3 = node3.getNext();
 
-                node1.setNext(node2);
+                DequeNode<Integer> expectedValue1 = node2,expectedValue2 = node3;
 
-                assertEquals(node1.getNext(),node2);
+                assertEquals(expectedValue1,obtainedValue1);
+                assertEquals(expectedValue2,obtainedValue2);
+                assertNull(obtainedValue3);
 
             }
             @Test
-            @DisplayName("test Set Next")
+            @DisplayName("setNext method test")
             void testSetNext () {
 
                 node3.setNext(node2);
 
-                assertEquals(node3.getNext(),node2);
+                DequeNode<Integer> expectedValue = node2,obtainedValue = node3.getNext();
+
+                assertEquals(expectedValue,obtainedValue);
             }
         }
 
@@ -139,33 +136,43 @@ public class DequeNodeTest {
 
 
     @Nested
-    @DisplayName("Tests posiciones booleanos")
-    class booleanos {
+    @DisplayName("Tests involving node positions")
+    class Booleans {
         @Test
+        @DisplayName("Testing isFirstNode method")
         void testIsFirstNode () {
 
-            assertTrue(node1.isFirstNode());
-            assertFalse(node2.isFirstNode());
-            assertFalse(node3.isFirstNode());
+            Boolean obtainedValue1 = node1.isFirstNode(), obtainedValue2 = node2.isFirstNode(), obtainedValue3 = node3.isFirstNode();
+
+            assertTrue(obtainedValue1);
+            assertFalse(obtainedValue2);
+            assertFalse(obtainedValue3);
         }
 
         @Test
+        @DisplayName("Testing isLastNode method")
         void testIsLastNode () {
-            assertFalse(node1.isLastNode());
-            assertFalse(node2.isLastNode());
-            assertTrue(node3.isLastNode());
+
+            Boolean obtainedValue1 = node1.isLastNode(), obtainedValue2 = node2.isLastNode(), obtainedValue3 = node3.isLastNode();
+
+            assertFalse(obtainedValue1);
+            assertFalse(obtainedValue2);
+            assertTrue(obtainedValue3);
 
         }
 
         @Test
+        @DisplayName("Testing isNotATerminalNode method")
         void isNotTerminalNode () {
-            assertFalse(node1.isNotATerminalNode());
-            assertTrue(node2.isNotATerminalNode());
-            assertFalse(node3.isNotATerminalNode());
+
+            Boolean obtainedValue1 = node1.isNotATerminalNode(), obtainedValue2 = node2.isNotATerminalNode(), obtainedValue3 = node3.isNotATerminalNode();
+            
+            assertFalse(obtainedValue1);
+            assertTrue(obtainedValue2);
+            assertFalse(obtainedValue3);
 
         }
     }
-
 
 
 }
