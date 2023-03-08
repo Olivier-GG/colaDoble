@@ -2,9 +2,9 @@ package org.mps.deque;
 
 public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
-    private DequeNode<T> first;
-    private DequeNode<T> last;
-    private int size;
+    protected DequeNode<T> first;
+    protected DequeNode<T> last;
+    protected int size;
 
     public DoublyLinkedListDeque() {
         first = null;
@@ -59,3 +59,4 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         return size;
     }
 }
+

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.condition.DisabledIfSystemProperties;
 import org.junit.jupiter.api.condition.EnabledForJreRange;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Tests for class{@link DequeNode}
@@ -29,10 +30,16 @@ public class DequeNodeTest {
 
     @BeforeEach
     void setup () {
-        node1 = new DequeNode(5,null,node2);
-        node2 = new DequeNode(7,node1,node3);
-        node3 = new DequeNode(1,node2,null);
-
+        node1 = new DequeNode(5,null,null);
+        node2 = new DequeNode(7,null,null);
+        node3 = new DequeNode(1,null,null);
+        //node1.setNext(node2);
+        node1.next = node2;
+        //node2.setPrevious(node1); node2.setNext(node3);
+        node2.previous = node1;
+        node2.next = node3;
+        //node3.setPrevious(node2);
+        node3.previous = node2;
     }
 
     @AfterEach
@@ -43,40 +50,41 @@ public class DequeNodeTest {
     }
 
     @Nested
-    @DisplayName("Getter y setter")
+    @DisplayName("Testing getters and setters methods")
     class getterYSetter {
 
         @Test
-        @DisplayName("Test get item")
+        @DisplayName("getItem method test")
         public void testGetItem () {
             assertEquals(node1.getItem(),5);
             assertEquals(node2.getItem(),7);
             assertEquals(node3.getItem(),1);
         }
 
-        @Test
-        @DisplayName("Test set item")
-        public void testSetItem () {
+        @ParameterizedTest(name = "Testing value {0}")
+        @DisplayName("setItem method test")
+        @CsvSource({"-1","0","1","2","3","32000"})
+        public void testSetItem (int value) {
 
-            node1.setItem(33);
+            node1.setItem(value);
 
             Object obtainedValue = node1.getItem();
-            assertEquals(33,(int)obtainedValue);
+            assertEquals(value,(int)obtainedValue);
 
         }
     }
 
 
     @Nested
-    @DisplayName("Test Next y previous")
-    class NextPrevious {
+    @DisplayName("Testing setNext and setPrevious methods")
+    class NextAndPreviousMethods {
 
         @Nested
-        @DisplayName("Previous Tests")
-        class previous {
+        @DisplayName("Testing methods related to previous node")
+        class Previous {
 
             @Test
-            @DisplayName("test Get Previous")
+            @DisplayName("getPrevious method tests")
             void testGetPrevious () {
 
                 DequeNode prueba1 = node1.getPrevious();
@@ -90,7 +98,7 @@ public class DequeNodeTest {
             }
 
             @Test
-            @DisplayName("test Set Previous")
+            @DisplayName("setPrevious method test")
             void testSetPrevious () {
 
                 node1.setPrevious(node3);
@@ -104,9 +112,9 @@ public class DequeNodeTest {
 
         //Otro Nested, con el de arriba en un pack mas grande
         @Nested
-        @DisplayName("Next tests")
-        class next {
-            @DisplayName("test Get Next")
+        @DisplayName("Testing methods related to next node")
+        class Next {
+            @DisplayName("")
             @Test
             void testGetNext () {
 
@@ -143,7 +151,6 @@ public class DequeNodeTest {
 
         @Test
         void testIsLastNode () {
-
             assertFalse(node1.isLastNode());
             assertFalse(node2.isLastNode());
             assertTrue(node3.isLastNode());
@@ -152,7 +159,6 @@ public class DequeNodeTest {
 
         @Test
         void isNotTerminalNode () {
-
             assertFalse(node1.isNotATerminalNode());
             assertTrue(node2.isNotATerminalNode());
             assertFalse(node3.isNotATerminalNode());
