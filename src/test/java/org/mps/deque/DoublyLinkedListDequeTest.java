@@ -5,17 +5,18 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class DoublyLinkedListDequeTest {
+class DoublyLinkedListDequeTest {
 
     DoublyLinkedListDeque<Integer> list;
     DequeNode<Integer> node1, node2;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         node1 = new DequeNode<>(5, null, null);
         node2 = new DequeNode<>(7, null, null);
 
         node1.next = node2;
+        node1.previous = null;
         node2.previous = node1;
         node2.next = null;
 
@@ -26,7 +27,7 @@ public class DoublyLinkedListDequeTest {
     }
 
     @AfterEach
-    public void shutDown() {
+    void shutDown() {
         node1 = null;
         node2 = null;
         list = null;
@@ -37,7 +38,7 @@ public class DoublyLinkedListDequeTest {
     class Getters {
         @Test
         @DisplayName("first method test")
-        public void testGetFirst() {
+        void testGetFirst() {
             Object obtainedValue = list.first();
             Object expectedValue = node1.getItem();
             assertEquals(list.first.getItem(), obtainedValue);
@@ -46,7 +47,7 @@ public class DoublyLinkedListDequeTest {
 
         @Test
         @DisplayName("getLast method test")
-        public void testGetLast() {
+        void testGetLast() {
             Object obtainedValue = list.last();
             Object expectedValue = node2.getItem();
             assertEquals(list.last.getItem(), obtainedValue);
@@ -55,7 +56,7 @@ public class DoublyLinkedListDequeTest {
 
         @Test
         @DisplayName("size method test")
-        public void testGetSize() {
+        void testGetSize() {
             int obtainedValue = list.size();
             int expectedValue =  list.size;
             assertEquals(expectedValue, obtainedValue);
@@ -70,7 +71,7 @@ public class DoublyLinkedListDequeTest {
         class Adders {
             @Test
             @DisplayName("prepend method test")
-            public void prependTest() {
+            void prependTest() {
                 Object expectedValue1 =  list.first.getItem();
                 int expectedValue2 = list.size+1;
 
@@ -85,7 +86,7 @@ public class DoublyLinkedListDequeTest {
 
             @Test
             @DisplayName("append method test")
-            public void appendTest() {
+            void appendTest() {
                 Object expectedValue1 =  list.last.getItem();
                 int expectedValue2 = list.size+1;
 
@@ -104,11 +105,11 @@ public class DoublyLinkedListDequeTest {
         class Removers {
             @Test
             @DisplayName("deleteFirst method test")
-            public void deleteFirstTest() {
+            void deleteFirstTest() {
                 Object obtainedValue1 = list.first.getNext();
                 int expectedValue2 = list.size;
                 list.deleteFirst();
-                DequeNode expectedValue1 = list.first;
+                DequeNode<Integer> expectedValue1 = list.first;
                 int obtainedValue2 = list.size + 1;
                 assertEquals(expectedValue1,obtainedValue1);
                 assertEquals(expectedValue2, obtainedValue2);
@@ -116,21 +117,65 @@ public class DoublyLinkedListDequeTest {
 
             @Test
             @DisplayName("deleteLast method test")
-            public void deleteLastTest() {
+            void deleteLastTest() {
                 Object expectedValue1 = list.last.getPrevious();
                 int expectedValue2 = list.size;
                 list.deleteLast();
-                DequeNode obtainedValue1 = list.last;
+                DequeNode<Integer> obtainedValue1 = list.last;
                 int obtainedValue2 = list.size + 1;
                 assertEquals(expectedValue1,obtainedValue1);
                 assertEquals(expectedValue2, obtainedValue2);
+            }
+
+            @Nested
+            @DisplayName("Removers tests with just one element in the queue")
+            class RemoversWithOneElementInTheQueue{
+                @Test
+                @DisplayName("deleteFirst method test with just one element in the queue")
+                void deleteFirstEmptyQueueTest(){
+                    list.deleteFirst();
+                    list.deleteFirst();
+                    int expectedValue = 0;
+                    int obtainedValue = list.size();
+                    assertEquals(expectedValue, obtainedValue);
+                }
+
+                @Test
+                @DisplayName("deleteLast method test with just one element in the queue")
+                void deleteLastEmptyQueueTest(){
+                    list.deleteLast();
+                    list.deleteLast();
+                    int expectedValue = 0;
+                    int obtainedValue = list.size();
+                    assertEquals(expectedValue, obtainedValue);
+                }
+            }
+
+            @Nested
+            @DisplayName("Removers tests with an empty queue")
+            class RemoversWithEmptyQueue{
+                @Test
+                @DisplayName("deleteFirst method test with empty queue")
+                void deleteFirstEmptyQueueTest(){
+                    list.deleteFirst();
+                    list.deleteFirst();
+                    assertThrows(DoubleEndedQueueException.class, () -> list.deleteFirst());
+                }
+
+                @Test
+                @DisplayName("deleteLast method test with empty queue")
+                void deleteLastEmptyQueueTest(){
+                    list.deleteLast();
+                    list.deleteLast();
+                    assertThrows(DoubleEndedQueueException.class, () -> list.deleteLast());
+                }
             }
         }
     }
 
     @Nested
     @DisplayName("Introducing null argument throws DoubleEndedQueueException")
-    public class NullArguments {
+    class NullArguments {
 
         @Test
         @DisplayName("Introducing null argument in append method")

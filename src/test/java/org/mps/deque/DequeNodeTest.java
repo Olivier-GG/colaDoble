@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 
 
-public class DequeNodeTest {
+class DequeNodeTest {
 
     DequeNode<Integer> node1,node2,node3;
 
@@ -45,7 +45,7 @@ public class DequeNodeTest {
 
         @Test
         @DisplayName("getItem method test")
-        public void testGetItem () {
+        void testGetItem () {
             assertEquals(node1.getItem(),5);
             assertEquals(node2.getItem(),7);
             assertEquals(node3.getItem(),1);
@@ -54,7 +54,7 @@ public class DequeNodeTest {
         @ParameterizedTest(name = "Testing value {0}")
         @DisplayName("setItem method test")
         @CsvSource({"-1","0","1","2","3","32000"})
-        public void testSetItem (Integer value) {
+        void testSetItem (Integer value) {
 
             node1.setItem(value);
 

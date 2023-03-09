@@ -15,9 +15,12 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     @Override
     public void prepend(T value) {
         if (value == null) {
-            throw new DoubleEndedQueueException("Valor nulo");
+            throw new DoubleEndedQueueException("Valor introducido nulo");
         }
         DequeNode<T> node = new DequeNode<>(value,null,first);
+        if(size == 0){
+            last = node;
+        }
         first.setPrevious(node);
         first = node;
         size++;
@@ -27,9 +30,12 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     @Override
     public void append(T value) {
         if(value == null) {
-            throw new DoubleEndedQueueException("Valor nulo");
+            throw new DoubleEndedQueueException("Valor introducido nulo");
         }
         DequeNode<T> node = new DequeNode<>(value, last, null);
+        if(size == 0){
+            first = node;
+        }
         last.setNext(node);
         last = node;
         size++;
@@ -37,15 +43,29 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public void deleteFirst() {
-        first = first.getNext();
-        first.setPrevious(null);
+        if(size == 0){
+            throw new DoubleEndedQueueException("La cola está vacía, no se pueden eliminar elementos");
+        }
+        first = first.getNext();    //null si solo queda un elemento (size == 1)
+        if(first == null){
+            last = null;
+        } else {
+            first.setPrevious(null);
+        }
         size--;
     }
 
     @Override
     public void deleteLast() {
-        last = last.getPrevious();
-        last.setNext(null);
+        if(size == 0){
+            throw new DoubleEndedQueueException("La cola está vacía, no se pueden eliminar elementos");
+        }
+        last = last.getPrevious();  //null si solo queda un elemento (size == 1)
+        if(last == null){
+            first = null;
+        } else {
+            last.setNext(null);
+        }
         size--;
     }
 
