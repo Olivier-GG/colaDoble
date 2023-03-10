@@ -71,11 +71,21 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public T first() {
+
+        if (size == 0) {
+            throw new DoubleEndedQueueException("Cola vacia, no se puede extraer el elemento");
+        }
+
         return first.getItem();
     }
 
     @Override
     public T last() {
+
+        if (size == 0) {
+            throw new DoubleEndedQueueException("Cola vacia, no se puede extraer el elemento");
+        }
+
         return last.getItem();
     }
 

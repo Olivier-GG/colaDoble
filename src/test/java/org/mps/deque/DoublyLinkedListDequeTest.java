@@ -61,6 +61,23 @@ class DoublyLinkedListDequeTest {
             int expectedValue =  list.size;
             assertEquals(expectedValue, obtainedValue);
         }
+
+        @Nested
+        @DisplayName("Getters with an empty queue")
+        class emptyQueue {
+            @Test
+            @DisplayName("getFirst test with an empty queue")
+            void testGetFirstEmptyQueue () {
+                DoublyLinkedListDeque<Integer> listavacia = new DoublyLinkedListDeque<>();
+                assertThrows(DoubleEndedQueueException.class, () -> listavacia.first());
+            }
+            @Test
+            @DisplayName("getLast test with an empty queue")
+            void testGetLastEmptyQueue () {
+                DoublyLinkedListDeque<Integer> listavacia = new DoublyLinkedListDeque<>();
+                assertThrows(DoubleEndedQueueException.class, () -> listavacia.last());
+            }
+        }
     }
 
     @Nested
