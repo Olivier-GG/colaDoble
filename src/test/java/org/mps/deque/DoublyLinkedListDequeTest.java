@@ -5,6 +5,16 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Test cases for class {@link DoublyLinkedListDeque}:
+ * Introducing null argument in append and prepend
+ * Testing methods than involve adding and removing objects from de list
+ *  Testing removers with empty queue
+ * Testing getters methods
+ *  Testing getters methods with empty queue
+ *
+ * @author Jose Francisco Ruiz Sierras & Olivier Gabana Gómez
+ */
 class DoublyLinkedListDequeTest {
 
     DoublyLinkedListDeque<Integer> list;
@@ -34,7 +44,7 @@ class DoublyLinkedListDequeTest {
     }
 
     @Nested
-    @DisplayName("Testing getters and setters methods")
+    @DisplayName("Testing getters methods")
     class Getters {
         @Test
         @DisplayName("first method test")
@@ -63,8 +73,8 @@ class DoublyLinkedListDequeTest {
         }
 
         @Nested
-        @DisplayName("Getters with an empty queue")
-        class emptyQueue {
+        @DisplayName("Testing getters methods with an empty queue")
+        class gettetsWithEmptyQueue {
             @Test
             @DisplayName("getFirst test with an empty queue")
             void testGetFirstEmptyQueue () {
@@ -174,17 +184,15 @@ class DoublyLinkedListDequeTest {
                 @Test
                 @DisplayName("deleteFirst method test with empty queue")
                 void deleteFirstEmptyQueueTest(){
-                    list.deleteFirst();
-                    list.deleteFirst();
-                    assertThrows(DoubleEndedQueueException.class, () -> list.deleteFirst());
+                    DoublyLinkedListDeque<Integer> listavacia = new DoublyLinkedListDeque<>();
+                    assertThrows(DoubleEndedQueueException.class, () -> listavacia.deleteFirst());
                 }
 
                 @Test
                 @DisplayName("deleteLast method test with empty queue")
                 void deleteLastEmptyQueueTest(){
-                    list.deleteLast();
-                    list.deleteLast();
-                    assertThrows(DoubleEndedQueueException.class, () -> list.deleteLast());
+                    DoublyLinkedListDeque<Integer> listavacia = new DoublyLinkedListDeque<>();
+                    assertThrows(DoubleEndedQueueException.class, () -> listavacia.deleteLast());
                 }
             }
         }
