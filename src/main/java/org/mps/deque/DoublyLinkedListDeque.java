@@ -20,8 +20,9 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         DequeNode<T> node = new DequeNode<>(value,null,first);
         if(size == 0){
             last = node;
+        } else {
+            first.setPrevious(node);
         }
-        first.setPrevious(node);
         first = node;
         size++;
 
@@ -35,8 +36,9 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         DequeNode<T> node = new DequeNode<>(value, last, null);
         if(size == 0){
             first = node;
+        } else {
+            last.setNext(node);
         }
-        last.setNext(node);
         last = node;
         size++;
     }

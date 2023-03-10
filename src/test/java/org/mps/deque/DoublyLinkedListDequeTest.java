@@ -125,6 +125,26 @@ class DoublyLinkedListDequeTest {
                 assertEquals(expectedValue1, obtainedValue1);
                 assertEquals(expectedValue2, obtainedValue2);
             }
+
+            @Test
+            @DisplayName("prepend method test with empty queue")
+            void prependTestEmptyQueue(){
+                DoublyLinkedListDeque<Integer> emptyList = new DoublyLinkedListDeque<>();
+                emptyList.prepend(3);
+                int expectedValue = 3;
+                int obtainedValue = emptyList.first();
+                assertEquals(expectedValue, obtainedValue);
+            }
+
+            @Test
+            @DisplayName("append method test with empty queue")
+            void appendTestEmptyQueue(){
+                DoublyLinkedListDeque<Integer> emptyList = new DoublyLinkedListDeque<>();
+                emptyList.append(3);
+                int expectedValue = 3;
+                int obtainedValue = emptyList.first();
+                assertEquals(expectedValue, obtainedValue);
+            }
         }
 
         @Nested
