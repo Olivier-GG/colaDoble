@@ -1,7 +1,5 @@
 package org.mps.deque;
 
-import org.w3c.dom.Node;
-
 import java.util.Comparator;
 
 public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
@@ -102,7 +100,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public T get(int index) {
-        if(index >= size){
+        if(index >= size || size < 0){
             throw new DoubleEndedQueueException("El índice buscado es mayor que el tamaño de la lista");
         }
         int counter = 0;
@@ -118,6 +116,10 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public boolean contains(T value) {
+        if (value == null) {
+            throw new DoubleEndedQueueException("El objeto a buscar es null");
+        }
+
         int counter = 0;
         DequeNode<T> actual = this.first;
         boolean encontrado = false;
@@ -168,6 +170,12 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     }
 
     private DequeNode<T> getNode(int index) {
+
+
+        if(index >= size || size < 0){
+            throw new DoubleEndedQueueException("El índice buscado es mayor que el tamaño de la lista");
+        }
+
         int i = 0;
         DequeNode<T> res = this.first;
 
@@ -180,6 +188,11 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     }
 
     private int getIndex(T value){
+
+        if (value == null) {
+            throw new DoubleEndedQueueException("El objeto a buscar el indice es null");
+        }
+
         int counter = 0;
         DequeNode<T> actual = this.first;
         boolean encontrado = false;
