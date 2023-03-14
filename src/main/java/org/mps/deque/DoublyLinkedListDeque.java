@@ -119,12 +119,14 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     @Override
     public boolean contains(T value) {
         int counter = 0;
-        DequeNode<T> actual = first;
+        DequeNode<T> actual = this.first;
         boolean encontrado = false;
 
-        while(counter < size && !encontrado){
+        while(counter < this.size && !encontrado){
+            if(actual.getItem().equals(value)){
+                encontrado = true;
+            }
             actual = actual.getNext();
-            encontrado = true;
             counter++;
         }
 
@@ -133,7 +135,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public void remove(T value) {
-
+        
     }
 
     @Override
