@@ -135,7 +135,10 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public void remove(T value) {
-        
+        DequeNode<T> nodo1 = getNode(getIndex(value));
+        nodo1.getPrevious().setNext(nodo1.getNext());
+        nodo1.getNext().setPrevious(nodo1.getPrevious());
+        size--;
     }
 
 
@@ -188,7 +191,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
             actual = actual.getNext();
             counter++;
         }
-        
+
         return counter--;
     }
 
