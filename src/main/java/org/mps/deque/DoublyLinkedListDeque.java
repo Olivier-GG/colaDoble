@@ -137,6 +137,9 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public void remove(T value) {
+        if(value == null){
+            throw new DoubleEndedQueueException("Argumento nulo");
+        }
         DequeNode<T> nodo1 = getNode(getIndex(value));
         nodo1.getPrevious().setNext(nodo1.getNext());
         nodo1.getNext().setPrevious(nodo1.getPrevious());
@@ -205,7 +208,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
             counter++;
         }
 
-        return counter--;
+        return counter - 1;
     }
 
 }
