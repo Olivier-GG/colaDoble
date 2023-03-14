@@ -76,7 +76,7 @@ class DoublyLinkedListDequeTest {
         @DisplayName("Testing getters methods with an empty queue")
         class gettetsWithEmptyQueue {
             @Test
-            @DisplayName("getFirst test with an empty queue")
+            @DisplayName("getFirst test with an empty queue should throw an exception")
             void testGetFirstEmptyQueue () {
                 DoublyLinkedListDeque<Integer> listavacia = new DoublyLinkedListDeque<>();
                 assertThrows(DoubleEndedQueueException.class, () -> listavacia.first());
@@ -234,7 +234,141 @@ class DoublyLinkedListDequeTest {
             assertThrows(DoubleEndedQueueException.class, () -> list.prepend(null));
         }
     }
-    
 
+
+
+    // PRUEBAS PARA LA SEGUNDA SESIÓN
+    @Nested
+    @DisplayName("Testing get node from index method")
+    class getMethodTests {
+        @Test
+        @DisplayName("get method test")
+        void getTest() {
+            Object expectedValue = node1.getItem();
+            Object obtainedValue = list.get(0);
+            assertEquals(expectedValue, obtainedValue);
+        }
+
+        @Test
+        @DisplayName("get method test with index out of bounds")
+        void getTestOutOfBounds() {
+            assertThrows(DoubleEndedQueueException.class, () -> list.get(3));
+        }
+
+        @Test
+        @DisplayName("get method test with negative index")
+        void getTestNegativeIndex() {
+            assertThrows(DoubleEndedQueueException.class, () -> list.get(-1));
+        }
+    }
+
+    @Nested
+    @DisplayName("Testing contains method")
+    class containsMethodTests {
+        @Test
+        @DisplayName("contains method test")
+        void containsTest() {
+            boolean expectedValue = true;
+            boolean obtainedValue = list.contains(1);
+            assertEquals(expectedValue, obtainedValue);
+        }
+
+        @Test
+        @DisplayName("contains method test with element not in the queue")
+        void containsTestElementNotInQueue() {
+            boolean expectedValue = false;
+            boolean obtainedValue = list.contains(3);
+            assertEquals(expectedValue, obtainedValue);
+        }
+    }
+
+    @Nested
+    @DisplayName("Testing remove method")
+    class removeMethodTests {
+        @Test
+        @DisplayName("remove method test")
+        void removeTest() {
+            Object expectedValue1 = node2.getItem();
+            int expectedValue2 = list.size-1;
+            list.remove(1);
+            Object obtainedValue1 = list.get(1);
+            int obtainedValue2 = list.size();
+            assertEquals(expectedValue1, obtainedValue1);
+            assertEquals(expectedValue2, obtainedValue2);
+        }
+
+        @Test
+        @DisplayName("remove method test with index out of bounds")
+        void removeTestOutOfBounds() {
+            assertThrows(DoubleEndedQueueException.class, () -> list.remove(3));
+        }
+
+        @Test
+        @DisplayName("remove method test with negative index")
+        void removeTestNegativeIndex() {
+            assertThrows(DoubleEndedQueueException.class, () -> list.remove(-1));
+        }
+    }
+
+    @Nested
+    @DisplayName("Testing sort method")
+    class sortMethodTests {
+        @Test
+        @DisplayName("sort method test with reverse order")
+        void sortTestReverseOrder() {
+            DoublyLinkedListDeque<Integer> list = new DoublyLinkedListDeque<>();
+            list.append(3);
+            list.append(2);
+            list.append(1);
+            list.sort(Integer::compareTo);
+            int expectedValue1 = 1;
+            int expectedValue2 = 2;
+            int expectedValue3 = 3;
+            int obtainedValue1 = list.get(0);
+            int obtainedValue2 = list.get(1);
+            int obtainedValue3 = list.get(2);
+            assertEquals(expectedValue1, obtainedValue1);
+            assertEquals(expectedValue2, obtainedValue2);
+            assertEquals(expectedValue3, obtainedValue3);
+        }
+
+        @Test
+        @DisplayName("sort method test with reverse order")
+        void sortTestMixedOrder() {
+            DoublyLinkedListDeque<Integer> list = new DoublyLinkedListDeque<>();
+            list.append(3);
+            list.append(2);
+            list.append(1);
+            list.sort(Integer::compareTo);
+            int expectedValue1 = 1;
+            int expectedValue2 = 2;
+            int expectedValue3 = 3;
+            int obtainedValue1 = list.get(0);
+            int obtainedValue2 = list.get(1);
+            int obtainedValue3 = list.get(2);
+            assertEquals(expectedValue1, obtainedValue1);
+            assertEquals(expectedValue2, obtainedValue2);
+            assertEquals(expectedValue3, obtainedValue3);
+        }
+
+        @Test
+        @DisplayName("sort method test with reverse order")
+        void sortTestOrdered() {
+            DoublyLinkedListDeque<Integer> list = new DoublyLinkedListDeque<>();
+            list.append(3);
+            list.append(2);
+            list.append(1);
+            list.sort(Integer::compareTo);
+            int expectedValue1 = 1;
+            int expectedValue2 = 2;
+            int expectedValue3 = 3;
+            int obtainedValue1 = list.get(0);
+            int obtainedValue2 = list.get(1);
+            int obtainedValue3 = list.get(2);
+            assertEquals(expectedValue1, obtainedValue1);
+            assertEquals(expectedValue2, obtainedValue2);
+            assertEquals(expectedValue3, obtainedValue3);
+        }
+    }
 
 }
