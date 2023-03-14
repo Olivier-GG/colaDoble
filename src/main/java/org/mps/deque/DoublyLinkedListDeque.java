@@ -1,5 +1,7 @@
 package org.mps.deque;
 
+import org.w3c.dom.Node;
+
 import java.util.Comparator;
 
 public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
@@ -100,7 +102,15 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        int counter = 0;
+        DequeNode<T> actual = first;
+
+        while(counter < index){
+            actual = actual.getNext();
+            counter++;
+        }
+
+        return actual.getItem();
     }
 
     @Override
