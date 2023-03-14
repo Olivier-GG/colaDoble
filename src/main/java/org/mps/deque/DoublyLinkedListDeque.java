@@ -113,9 +113,46 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     }
 
+
     @Override
     public void sort(Comparator<? super T> comparator) {
+        boolean seguir = true;
+        for(int i=this.size-1; seguir; i--) {
+            seguir = false;
+            for(int j=0; j<i; j++)
+                if(comparator.compare(this.get(j),this.get(j+1))>0) {
+                    intercambiar(j, j+1);
+                    seguir = true;
+                }
+        }
 
     }
+
+    private void intercambiar (int a, int b) {
+
+        DequeNode<T> nodo1 = this.getNode(a) , nodo2 = this.getNode(b);
+
+        T aux = nodo1.getItem();
+
+        nodo1.setItem(nodo2.getItem());
+        nodo2.setItem(aux);
+
+    }
+
+    private DequeNode<T> getNode(int index) {
+
+        int i = 0;
+
+        DequeNode<T> res = this.first;
+
+        while (i< index) {
+            res = res.getNext();
+            i++;
+        }
+
+        return res;
+    }
+
+
 }
 
