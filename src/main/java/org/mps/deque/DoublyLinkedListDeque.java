@@ -165,9 +165,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     }
 
     private DequeNode<T> getNode(int index) {
-
         int i = 0;
-
         DequeNode<T> res = this.first;
 
         while (i< index) {
@@ -178,6 +176,21 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         return res;
     }
 
+    private int getIndex(T value){
+        int counter = 0;
+        DequeNode<T> actual = this.first;
+        boolean encontrado = false;
+
+        while(counter < this.size && !encontrado){
+            if(actual.getItem().equals(value)){
+                encontrado = true;
+            }
+            actual = actual.getNext();
+            counter++;
+        }
+        
+        return counter--;
+    }
 
 }
 
