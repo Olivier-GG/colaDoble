@@ -102,6 +102,9 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public T get(int index) {
+        if(index >= size){
+            throw new DoubleEndedQueueException("El índice buscado es mayor que el tamaño de la lista");
+        }
         int counter = 0;
         DequeNode<T> actual = first;
 
@@ -115,7 +118,17 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public boolean contains(T value) {
-        return false;
+        int counter = 0;
+        DequeNode<T> actual = first;
+        boolean encontrado = false;
+
+        while(counter < size && !encontrado){
+            actual = actual.getNext();
+            encontrado = true;
+            counter++;
+        }
+
+        return encontrado;
     }
 
     @Override
