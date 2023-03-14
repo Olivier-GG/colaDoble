@@ -100,7 +100,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public T get(int index) {
-        if(index >= size || size < 0){
+        if(index >= size || index < 0){
             throw new DoubleEndedQueueException("El índice buscado es mayor que el tamaño de la lista");
         }
         int counter = 0;
@@ -140,9 +140,23 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         if(value == null){
             throw new DoubleEndedQueueException("Argumento nulo");
         }
+
         DequeNode<T> nodo1 = getNode(getIndex(value));
-        nodo1.getPrevious().setNext(nodo1.getNext());
-        nodo1.getNext().setPrevious(nodo1.getPrevious());
+
+        if (nodo1.getPrevious() == null && nodo1.getNext() == null) {
+            this.first = null;
+            this.last = null;
+        } else if (nodo1.getPrevious() == null) {
+            nodo1.getNext().setPrevious(null);
+            this.first = nodo1.getNext();
+        } else if (nodo1.getNext() == null) {
+            nodo1.getPrevious().setNext(null);
+            this.last = nodo1.getPrevious();
+        } else {
+            nodo1.getPrevious().setNext(nodo1.getNext());
+            nodo1.getNext().setPrevious(nodo1.getPrevious());
+        }
+
         size--;
     }
 
@@ -175,7 +189,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     private DequeNode<T> getNode(int index) {
 
 
-        if(index >= size || size < 0){
+        if(index >= size || index < 0){
             throw new DoubleEndedQueueException("El índice buscado es mayor que el tamaño de la lista");
         }
 

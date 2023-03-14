@@ -269,7 +269,7 @@ class DoublyLinkedListDequeTest {
         @DisplayName("contains method test")
         void containsTest() {
             boolean expectedValue = true;
-            boolean obtainedValue = list.contains(1);
+            boolean obtainedValue = list.contains(5);
             assertEquals(expectedValue, obtainedValue);
         }
 
@@ -290,8 +290,8 @@ class DoublyLinkedListDequeTest {
         void removeTest() {
             Object expectedValue1 = node2.getItem();
             int expectedValue2 = list.size-1;
-            list.remove(1);
-            Object obtainedValue1 = list.get(1);
+            list.remove(5);
+            Object obtainedValue1 = list.get(0);
             int obtainedValue2 = list.size();
             assertEquals(expectedValue1, obtainedValue1);
             assertEquals(expectedValue2, obtainedValue2);
@@ -300,12 +300,14 @@ class DoublyLinkedListDequeTest {
         @Test
         @DisplayName("remove method test with index out of bounds")
         void removeTestOutOfBounds() {
+            //no tiene sentido porque borramos por elemento no por posicion en todo caso sera intentar borrar un null
             assertThrows(DoubleEndedQueueException.class, () -> list.remove(3));
         }
 
         @Test
         @DisplayName("remove method test with negative index")
         void removeTestNegativeIndex() {
+            //no tiene sentido porque borramos por elemento no por posicion en todo caso sera intentar borrar un null
             assertThrows(DoubleEndedQueueException.class, () -> list.remove(-1));
         }
     }
