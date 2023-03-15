@@ -16,9 +16,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public void prepend(T value) {
-        if (value == null) {
-            throw new DoubleEndedQueueException("Valor introducido nulo");
-        }
+
         DequeNode<T> node = new DequeNode<>(value,null,first);
         if(size == 0){
             last = node;
@@ -32,9 +30,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public void append(T value) {
-        if(value == null) {
-            throw new DoubleEndedQueueException("Valor introducido nulo");
-        }
+
         DequeNode<T> node = new DequeNode<>(value, last, null);
         if(size == 0){
             first = node;
@@ -101,7 +97,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     @Override
     public T get(int index) {
         if(index >= size || index < 0){
-            throw new DoubleEndedQueueException("El índice buscado es mayor que el tamaño de la lista");
+            throw new IndexOutOfBoundsException("Indice fuera de rango");
         }
         int counter = 0;
         DequeNode<T> actual = first;
@@ -116,9 +112,6 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public boolean contains(T value) {
-        if (value == null) {
-            throw new DoubleEndedQueueException("El objeto a buscar es null");
-        }
 
         int counter = 0;
         DequeNode<T> actual = this.first;
@@ -137,27 +130,27 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public void remove(T value) {
-        if(value == null){
-            throw new DoubleEndedQueueException("Argumento nulo");
-        }
 
         DequeNode<T> nodo1 = getNode(getIndex(value));
 
-        if (nodo1.getPrevious() == null && nodo1.getNext() == null) {
-            this.first = null;
-            this.last = null;
-        } else if (nodo1.getPrevious() == null) {
-            nodo1.getNext().setPrevious(null);
-            this.first = nodo1.getNext();
-        } else if (nodo1.getNext() == null) {
-            nodo1.getPrevious().setNext(null);
-            this.last = nodo1.getPrevious();
-        } else {
-            nodo1.getPrevious().setNext(nodo1.getNext());
-            nodo1.getNext().setPrevious(nodo1.getPrevious());
-        }
+        if(nodo1 != null) {
 
-        size--;
+            if (nodo1.getPrevious() == null && nodo1.getNext() == null) {
+                this.first = null;
+                this.last = null;
+            } else if (nodo1.getPrevious() == null) {
+                nodo1.getNext().setPrevious(null);
+                this.first = nodo1.getNext();
+            } else if (nodo1.getNext() == null) {
+                nodo1.getPrevious().setNext(null);
+                this.last = nodo1.getPrevious();
+            } else {
+                nodo1.getPrevious().setNext(nodo1.getNext());
+                nodo1.getNext().setPrevious(nodo1.getPrevious());
+            }
+
+            size--;
+        }
     }
 
 
@@ -187,10 +180,8 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     }
 
     private DequeNode<T> getNode(int index) {
-
-
-        if(index >= size || index < 0){
-            throw new DoubleEndedQueueException("El índice buscado es mayor que el tamaño de la lista");
+        if(index < 0){
+            return null;
         }
 
         int i = 0;
@@ -202,13 +193,10 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         }
 
         return res;
+
     }
 
     private int getIndex(T value){
-
-        if (value == null) {
-            throw new DoubleEndedQueueException("El objeto a buscar el indice es null");
-        }
 
         int counter = 0;
         DequeNode<T> actual = this.first;
@@ -222,7 +210,7 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
             counter++;
         }
 
-        return counter - 1;
+        return encontrado? counter-1 : -1;
     }
 
 }
