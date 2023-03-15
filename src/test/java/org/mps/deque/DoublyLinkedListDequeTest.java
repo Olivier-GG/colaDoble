@@ -6,8 +6,48 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test cases for class {@link DoublyLinkedListDeque}:
- *
- *
+ * 1. Testing getters methods
+ * 1.1. first method test
+ * 1.2. last method test
+ * 1.3. size method test
+ * 1.4. Testing getters methods with an empty queue
+ * 1.4.1. getFirst test with an empty queue should throw an exception
+ * 1.4.2. getLast test with an empty queue should throw an exception
+ * 2. Testing methods that involve adding and removing objects from the list
+ * 2.1. Adders test
+ * 2.1.1. prepend method test
+ * 2.1.2. append method test
+ * 2.1.3. prepend method test with an empty queue
+ * 2.1.4. append method test with an empty queue
+ * 2.2. Removers test
+ * 2.2.1. deleteFirst method test
+ * 2.2.2. deleteLast method test
+ * 2.2.3. Removers test with just one element in the queue
+ * 2.2.3.1. deleteFirst method test with just one element in the queue
+ * 2.2.3.2 deleteLast method test with just one element in the queue
+ * 2.2.4. Removers test with an empty queue
+ * 2.2.4.1. deleteFirst method test with an empty queue should throw an exception
+ * 2.2.4.2 deleteLast method test with an empty queue should throw an exception
+ * 3 Testing get item from index
+ * 3.1. get method test
+ * 3.2. get method test with index out of bounds should throw an exception
+ * 3.3. get method test with negative index should throw an exception
+ * 3.4. get method test with an empty queue should throw an exception
+ * 4. Testing contains method
+ * 4.1. contains method test with element in the queue should return true
+ * 4.2. contains method test with element not in the queue should return false
+ * 4.3. contains method test with and empty queue should return false
+ * 5. Testing remove method
+ * 5.1. removing the first item in the queue with remove method
+ * 5.2. removing the last item in the queue with remove method
+ * 5.3. removing an item in the middle of the queue with remove method
+ * 5.4. removing all items in the queue with remove method
+ * 5.5 remove method test with an element not contained in the queue should do nothing
+ * 5.6 remove method test with an empty queue should do nothing
+ * 6. Testing sort method
+ * 6.1. sort method test with reverse ordered queue
+ * 6.2. sort method test with ordered queue
+ * 6.3. sort method test with unordered queue
  *
  * @author Jose Francisco Ruiz Sierras & Olivier Gabana Gómez
  */
@@ -54,7 +94,7 @@ class DoublyLinkedListDequeTest {
         }
 
         @Test
-        @DisplayName("getLast method test")
+        @DisplayName("last method test")
         void testGetLast() {
             Object obtainedValue = list.last();
             Object expectedValue = node2.getItem();
@@ -72,7 +112,7 @@ class DoublyLinkedListDequeTest {
 
         @Nested
         @DisplayName("Testing getters methods with an empty queue")
-        class gettetsWithEmptyQueue {
+        class gettersWithEmptyQueue {
             @Test
             @DisplayName("getFirst test with an empty queue should throw an exception")
             void testGetFirstEmptyQueue () {
@@ -220,7 +260,7 @@ class DoublyLinkedListDequeTest {
 
     // PRUEBAS PARA LA SEGUNDA SESIÓN
     @Nested
-    @DisplayName("Testing get node from index method")
+    @DisplayName("Testing get item from index")
     class getMethodTests {
         @Test
         @DisplayName("get method test")
@@ -268,14 +308,14 @@ class DoublyLinkedListDequeTest {
         }
 
         @Test
-        @DisplayName("contains method test with element not in the queue")
+        @DisplayName("contains method test with element not in the queue should return false")
         void containsTestWithElementNotInQueue() {
             boolean expectedValue = false;
             boolean obtainedValue = list.contains(3);
             assertEquals(expectedValue, obtainedValue);
         }
         @Test
-        @DisplayName("contains method test with empty queue")
+        @DisplayName("contains method test with and empty queue should return false")
         void containsTestWithEmptyQueue() {
             DoublyLinkedListDeque<Integer> newList = new DoublyLinkedListDeque<>();
             boolean expectedValue = false;
@@ -312,7 +352,7 @@ class DoublyLinkedListDequeTest {
         }
 
         @Test
-        @DisplayName("removing the middle item in the queue with remove method")
+        @DisplayName("removing an item in the middle of the queue with remove method")
         void removeMiddleTest() {
             list.append(4);
             Object expectedValue1 = node1.getItem();
@@ -339,6 +379,16 @@ class DoublyLinkedListDequeTest {
             assertNull(obtainedValue1);
             assertNull(obtainedValue2);
             assertEquals(expectedValue3, obtainedValue3);
+        }
+
+        @Test
+        @DisplayName("remove method test with an empty queue should do nothing")
+        void removeTestWithEmptyQueue() {
+            DoublyLinkedListDeque<Integer> expectedValue = new DoublyLinkedListDeque<>();
+            DoublyLinkedListDeque<Integer> obtainedValue = new DoublyLinkedListDeque<>();
+            obtainedValue.remove(1);
+            assertEquals(expectedValue.first,obtainedValue.first);
+            assertEquals(expectedValue.last,obtainedValue.last);
         }
 
         @Test
@@ -408,8 +458,8 @@ class DoublyLinkedListDequeTest {
         }
 
         @Test
-        @DisplayName("sort method test with mixed queue")
-        void sortTestMixedOrder() {
+        @DisplayName("sort method test with unordered queue")
+        void sortTestNonOrdered() {
             DoublyLinkedListDeque<Integer> list = new DoublyLinkedListDeque<>();
             list.append(26);
             list.append(5);
