@@ -8,14 +8,20 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 /**
  * Tests for class{@link DequeNode}
- * Tests involving node positions
- *  Testing isNotATerminalNode
- *  Testing isFirstNode
- *  Testing isLastNode
- * Testing methods related to next and previous nodes
- *  Getters and setters of next and previous
- *  Testing getters and setters of the item
- *
+ *  1. Testing getters and setters methods of the item
+ *  1.1. getItem method test
+ *  1.2. setItem method test
+ *  2. Testing methods related to next and previous nodes
+ *  2.1. Testing methods related to previous node
+ *  2.1.1. getPrevious method tests
+ *  2.1.2. setPrevious method test
+ *  2.2. Testing methods related to next node
+ *  2.2.1. getNext method test
+ *  2.2.2. setNext method test
+ *  3. Testing involving node positions
+ *  3.1 Testing isFirstNode method
+ *  3.2 Testing isLastNode method
+ *  3.3 Testing isNotATerminalNode method
  * @author Jose Francisco Ruiz Sierras & Olivier Gabana Gómez
  */
 
@@ -107,7 +113,6 @@ class DequeNodeTest {
 
         }
 
-        //Otro Nested, con el de arriba en un pack mas grande
         @Nested
         @DisplayName("Testing methods related to next node")
         class Next {
@@ -143,7 +148,7 @@ class DequeNodeTest {
 
 
     @Nested
-    @DisplayName("Tests involving node positions")
+    @DisplayName("Testing involving node positions")
     class Booleans {
         @Test
         @DisplayName("Testing isFirstNode method")
